@@ -57,3 +57,31 @@ user.setOwnedItems(gameSet);
 2) Sa ii atribuim un wallet
 3) Sa il setam un numar de softuri pe care le detine
 4) Sa creem ierarhia de referinte
+
+```JAVA
+Scanner s = new Scanner(System.in);
+User user = userService.addUser(s);
+Wallet wallet = walletService.addWallet(s);
+
+
+ArrayList<Software> gameSet = new ArrayList<>();
+System.out.println("Number of softwares owned: ");
+int nr = s.nextInt();
+for (int i = 0; i < nr; i++){
+    Software soft = softwareService.addSoftware(s);
+    gameSet.add(soft);
+}
+
+walletService.modifyWallet(wallet);
+
+user.setWallet(wallet);
+user.setOwnedItems(gameSet);
+```
+##### Cu ajoturul acestei secvente, putem:
+1) Sa creem un user
+2) Sa ii atribuim un wallet
+3) Sa citim un numar de softuri pe care le detine
+4) Sa modificam wallet-ul actual
+5) Sa creem ierarhia de referinte
+
+
