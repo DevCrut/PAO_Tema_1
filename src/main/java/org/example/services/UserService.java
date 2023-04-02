@@ -1,12 +1,6 @@
 package org.example.services;
 
-import org.example.classes.App;
-import org.example.classes.Game;
-import org.example.classes.Software;
 import org.example.classes.User;
-import org.example.classes.Wallet;
-import org.example.enums.GameGenre;
-import org.example.enums.MobileOS;
 import org.example.repos.UserRepos;
 
 import javax.sound.midi.Soundbank;
@@ -14,14 +8,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserService {
-    UserRepos repos;
+    static UserRepos repos;
 
-
-    public void UserService(){
-        repos = new UserRepos();
+    public UserService(){
+        this.repos = new UserRepos();
     }
 
-    public void addUser(Scanner s){
+    public User addUser(Scanner s){
         System.out.println("Enter user id: ");
         int user_id = s.nextInt();
 
@@ -29,8 +22,9 @@ public class UserService {
         String user_name = s.next();
 
         User user = new User(user_id, user_name);
-
         this.repos.addUser(user);
+
+        return user;
     }
 
     public User modifyUser(User user, Scanner s){

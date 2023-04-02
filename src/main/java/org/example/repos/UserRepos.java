@@ -10,10 +10,10 @@ import java.util.function.Predicate;
 public class UserRepos {
     ArrayList<User> users;
 
-    public void UserRepos(){
+    public UserRepos(){
         this.users = new ArrayList<>();
     }
-    public void UserRepos(ArrayList<User> users){
+    public UserRepos(ArrayList<User> users){
         this.users = new ArrayList<>(users);
     }
 

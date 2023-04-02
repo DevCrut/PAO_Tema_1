@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class WalletService {
     WalletRepos repos;
 
-    public void UserService(){
+    public WalletService(){
         repos = new WalletRepos();
     }
 
-    public void addWallet(Scanner s){
+    public Wallet addWallet(Scanner s){
         System.out.println("Enter wallet id: ");
         int wallet_id = s.nextInt();
 
@@ -26,6 +26,8 @@ public class WalletService {
 
         Wallet wallet = new Wallet(wallet_id, bonus_points, dollars);
         this.repos.addWallet(wallet);
+
+        return wallet;
     }
 
     public Wallet modifyWallet(Wallet wallet, Scanner s){

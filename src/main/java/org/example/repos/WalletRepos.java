@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class WalletRepos {
     ArrayList<Wallet> wallets;
 
-    public void WalletRepos(){
+    public WalletRepos(){
         this.wallets = new ArrayList<>();
     }
-    public void WalletRepos(ArrayList<Wallet> wallets){
+    public WalletRepos(ArrayList<Wallet> wallets){
         this.wallets = new ArrayList<>(wallets);
     }
 

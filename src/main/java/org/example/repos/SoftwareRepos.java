@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class SoftwareRepos {
     ArrayList<Software> softs;
 
-    public void SoftwareRepos(){
+    public SoftwareRepos(){
         this.softs = new ArrayList<>();
     }
-    public void SoftwareRepos(ArrayList<Software> softs){
+    public SoftwareRepos(ArrayList<Software> softs){
         this.softs = new ArrayList<>(softs);
     }
 

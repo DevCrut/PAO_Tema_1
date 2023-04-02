@@ -13,11 +13,11 @@ import java.util.Scanner;
 public class SoftwareService {
 
     SoftwareRepos repos;
-    public void SoftwareService(){
+    public SoftwareService(){
         repos = new SoftwareRepos();
     }
 
-    public void addSoftware(Scanner s){
+    public Software addSoftware(Scanner s){
         System.out.println("Enter software id: ");
         int software_id = s.nextInt();
 
@@ -47,6 +47,8 @@ public class SoftwareService {
             App newapp = new App(software_id, software_name, software_time_created, software_sales, software_rating);
             newapp.setDevice_type(os);
             repos.addSoftware(newapp);
+
+            return newapp;
         }else{
             System.out.println("Enter size in MB: ");
             int size = s.nextInt();
@@ -81,6 +83,8 @@ public class SoftwareService {
             newgame.setGenre(gre);
             newgame.setSize(size);
             repos.addSoftware(newgame);
+
+            return newgame;
         }
     }
 
