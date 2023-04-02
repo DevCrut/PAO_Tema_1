@@ -1,6 +1,6 @@
 package org.example.classes;
 
-public class Software {
+public abstract class Software {
     int software_id;
     String software_name;
     int time_created;
