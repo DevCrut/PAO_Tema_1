@@ -29,7 +29,11 @@ gameSet.add(soft);
 user.setWallet(wallet);
 user.setOwnedItems(gameSet);
 ```
-##### Cu ajutorul acestei secvente de cod, putem citii de la tastatura, un User, un Wallet pentru user si deja un Soft care il detine
+##### Cu ajutorul acestei secvente de cod, putem sa:
+1) Folosim functionalul din Servicii pentru a citi un user
+2) Sa ii atribuim un wallet
+3) Sa ii atribuim un singur soft
+4) Sa ierarhia de referinte
 
 ```JAVA
 Scanner s = new Scanner(System.in);
