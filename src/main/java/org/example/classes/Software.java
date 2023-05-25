@@ -3,9 +3,7 @@ package org.example.classes;
 public abstract class Software {
     int software_id;
     String software_name;
-    int time_created;
-    int software_sales;
-    float software_rating;
+    int time_owned;
 
     public Software(int software_id){
         this.software_id = software_id;
@@ -14,23 +12,10 @@ public abstract class Software {
         this.software_id = software_id;
         this.software_name = software_name;
     }
-    public Software(int software_id, String software_name, int time_created){
+    public Software(int software_id, String software_name, int time_owned){
         this.software_id = software_id;
         this.software_name = software_name;
-        this.time_created = time_created;
-    }
-    public Software(int software_id, String software_name, int time_created, int software_sales){
-        this.software_id = software_id;
-        this.software_name = software_name;
-        this.time_created = time_created;
-        this.software_sales = software_sales;
-    }
-    public Software(int software_id, String software_name, int time_created, int software_sales, float software_rating){
-        this.software_id = software_id;
-        this.software_name = software_name;
-        this.time_created = time_created;
-        this.software_sales = software_sales;
-        this.software_rating = software_rating;
+        this.time_owned = time_owned;
     }
 
     public int getSoftware_id() {
@@ -49,27 +34,11 @@ public abstract class Software {
         this.software_name = software_name;
     }
 
-    public int getTime_created() {
-        return time_created;
+    public int getTime_owned() {
+        return time_owned;
     }
 
-    public void setTime_created(int time_created) {
-        this.time_created = time_created;
-    }
-
-    public int getSoftware_sales() {
-        return software_sales;
-    }
-
-    public void setSoftware_sales(int software_sales) {
-        this.software_sales = software_sales;
-    }
-
-    public float getSoftware_rating() {
-        return software_rating;
-    }
-
-    public void setSoftware_rating(float software_rating) {
-        this.software_rating = software_rating;
+    public void setTime_owned(int time_created) {
+        this.time_owned = time_created;
     }
 }

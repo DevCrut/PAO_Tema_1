@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PAO_Tema_1" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="PAO_Tema_1" target="20" />
+      <module name="pao_tema_1" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
