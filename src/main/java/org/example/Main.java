@@ -27,17 +27,5 @@ public class Main {
         user.setWallet(wallet);
         user.setOwnedItems(gameSet);*/
 
-        String driver = "oracle.jdbc.OracleDriver";
-        String jdbc_url = "jdbc:oracle:thin:@localhost:1521:XE";
-        String login = "sys as SYSDBA";
-        String password = "sys123";
-        Class.forName(driver);
-        Connection con = DriverManager.getConnection(jdbc_url, login, password);
-        Statement st = con.createStatement();
-        System.out.println(st.executeUpdate("create table helloWorld(" +
-                "    dev_id int," +
-                "    dev_name varchar2(200)," +
-                "    dev_display_name varchar2(200)" +
-                ")"));
     }
 }

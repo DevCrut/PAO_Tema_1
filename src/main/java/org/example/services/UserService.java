@@ -1,6 +1,7 @@
 package org.example.services;
 
 import org.example.classes.User;
+import org.example.database.DatabaseManager;
 import org.example.repos.UserRepos;
 
 import javax.sound.midi.Soundbank;
@@ -9,8 +10,10 @@ import java.util.Scanner;
 
 public class UserService {
     static UserRepos repos;
+    static DatabaseManager database;
 
     public UserService(){
+        this.database = DatabaseManager.getInstance();
         this.repos = new UserRepos();
     }
 
