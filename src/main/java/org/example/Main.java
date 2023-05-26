@@ -1,6 +1,8 @@
 package org.example;
 
 import org.example.classes.*;
+import org.example.csv.CSVWriter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,5 +28,7 @@ public class Main {
         controller.modifySoftwareMany(data2);
         controller.removeUserMany(data);
         controller.removeSoftwareMany(data2);
+
+        CSVWriter.getInstance().endTask();
     }
 }
