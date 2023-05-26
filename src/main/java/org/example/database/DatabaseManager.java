@@ -7,6 +7,7 @@ import java.sql.*;
 
 public class DatabaseManager implements DatabaseConnection {
     private static DatabaseManager single_instance = null;
+    private Connection connection;
     private String driver = "oracle.jdbc.OracleDriver";
     private String jdbc_url = "jdbc:oracle:thin:@localhost:1521:XE";
     private String login = "sys as SYSDBA";
@@ -17,7 +18,7 @@ public class DatabaseManager implements DatabaseConnection {
     public void connect() throws DatabaseConnectionException {
         try {
             Class.forName(driver);
-            Connection con = DriverManager.getConnection(jdbc_url, login, password);
+            this.connection = DriverManager.getConnection(jdbc_url, login, password);
         }catch (Exception e){
             e.printStackTrace();
             throw new DatabaseConnectionException("UNABLE TO CONNECT TO DATABASE. CHECK LOGIN DATA");

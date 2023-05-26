@@ -1,8 +1,6 @@
 package org.example.csv;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class CSVWriter {
     private static CSVWriter single_instance = null;
@@ -15,10 +13,15 @@ public class CSVWriter {
         return single_instance;
     }
 
-    public void write(String data) throws FileNotFoundException {
-        File auditLog = new File("auditlog.csv");
-        PrintWriter csvWriter = new PrintWriter(auditLog);
-        csvWriter.write(data + '\n');
-        csvWriter.close();
+    public void write(String data) {
+        try {
+            FileWriter csvWriter = new FileWriter("auditlog.csv", true);
+            BufferedWriter writer = new BufferedWriter(csvWriter);
+            writer.write(data);
+            writer.newLine();
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

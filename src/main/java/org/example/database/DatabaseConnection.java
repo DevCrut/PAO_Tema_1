@@ -6,7 +6,6 @@ import org.example.exceptions.DatabaseDisconnectException;
 import java.sql.Connection;
 
 public interface DatabaseConnection {
-    Connection connection = null;
     boolean isConnected = false;
 
     void connect() throws DatabaseConnectionException;

@@ -4,7 +4,7 @@ public class Account {
     int account_id;
     int account_type;
     String account_name;
-    int account_time_created;
+    String account_time_created;
     int wallet_id;
 
     public Account(int account_id){
@@ -19,13 +19,13 @@ public class Account {
         this.account_type = account_type;
         this.account_name = account_name;
     }
-    public Account(int account_id, int account_type, String account_name, int time_created){
+    public Account(int account_id, int account_type, String account_name, String time_created){
         this.account_id = account_id;
         this.account_type = account_type;
         this.account_name = account_name;
         this.account_time_created = time_created;
     }
-    public Account(int account_id, int account_type, String account_name, int time_created, int wallet){
+    public Account(int account_id, int account_type, String account_name, String time_created, int wallet){
         this.account_id = account_id;
         this.account_type = account_type;
         this.account_name = account_name;
@@ -57,11 +57,11 @@ public class Account {
         this.account_name = account_name;
     }
 
-    public int getTime_created() {
+    public String getTime_created() {
         return account_time_created;
     }
 
-    public void setTime_created(int time_created) {
+    public void setTime_created(String time_created) {
         this.account_time_created = time_created;
     }
 
