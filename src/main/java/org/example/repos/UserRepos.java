@@ -56,10 +56,11 @@ public non-sealed class UserRepos extends Observer<Account> implements Repos<Acc
     public void modify(Account x) {
         try {
             Statement stmt = database.getConnection().createStatement();
-            String sqlCommand = "update plt_account set account_type="+x.getAccount_type()+
-                                ", account_name='"+x.getAccount_name()+"'"+
-                                ", account_time_created=(select to_date("+x.getTime_created()+") from dual)"+
+            String sqlCommand = "update plt_account set account_type="+x.getAccount_type()+" "+
+                                ", account_name='"+x.getAccount_name()+"' "+
+                                ", account_time_created=to_date('"+x.getTime_created()+"') "+
                                 ", wallet_id="+x.getWallet()+" where account_id = " + x.getAccount_id();
+            System.out.println(sqlCommand);
             int res = stmt.executeUpdate(sqlCommand);
             if (res > 0)
                 System.out.println("Successfully Updated");

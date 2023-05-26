@@ -5,11 +5,11 @@ import org.example.csv.CSVWriter;
 import org.example.repos.Service;
 import org.example.repos.SoftwareRepos;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.sql.ResultSet;
 import java.io.FileNotFoundException;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.function.Consumer;
 
 public class SoftwareService implements Service<Software> {
@@ -22,8 +22,11 @@ public class SoftwareService implements Service<Software> {
             @Override
             public void accept(Software software) {
                 try {
-                    CSVWriter.getInstance().write("ADDED DATA TO TABLE SOFTWARE," + software.toString());
-                } catch (FileNotFoundException e) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String json = objectMapper.writeValueAsString(software);
+
+                    CSVWriter.getInstance().write("ADDED DATA TO TABLE SOFTWARE," + CSVWriter.getInstance().escapeAndQuote(json));
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -32,8 +35,11 @@ public class SoftwareService implements Service<Software> {
             @Override
             public void accept(Software software) {
                 try {
-                    CSVWriter.getInstance().write("MODIFIED DATA FROM TABLE SOFTWARE," + software.toString());
-                } catch (FileNotFoundException e) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String json = objectMapper.writeValueAsString(software);
+
+                    CSVWriter.getInstance().write("MODIFIED DATA FROM TABLE SOFTWARE," + CSVWriter.getInstance().escapeAndQuote(json));
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -43,8 +49,11 @@ public class SoftwareService implements Service<Software> {
             @Override
             public void accept(Software software) {
                 try {
-                    CSVWriter.getInstance().write("REMOVED DATA FROM TABLE SOFTWARE," + software.toString());
-                } catch (FileNotFoundException e) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String json = objectMapper.writeValueAsString(software);
+
+                    CSVWriter.getInstance().write("REMOVED DATA FROM TABLE SOFTWARE," + CSVWriter.getInstance().escapeAndQuote(json));
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }

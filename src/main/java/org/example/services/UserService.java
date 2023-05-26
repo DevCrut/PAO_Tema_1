@@ -1,5 +1,6 @@
 package org.example.services;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.classes.Account;
 import org.example.classes.Software;
 import org.example.csv.CSVWriter;
@@ -25,8 +26,11 @@ public class UserService implements Service<Account> {
             @Override
             public void accept(Account acc) {
                 try {
-                    CSVWriter.getInstance().write("ADDED DATA TO TABLE ACCOUNT," + acc.toString());
-                } catch (FileNotFoundException e) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String json = objectMapper.writeValueAsString(acc);
+
+                    CSVWriter.getInstance().write("ADDED DATA TO TABLE ACCOUNT," + CSVWriter.getInstance().escapeAndQuote(json));
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -35,8 +39,11 @@ public class UserService implements Service<Account> {
             @Override
             public void accept(Account acc) {
                 try {
-                    CSVWriter.getInstance().write("MODIFIED DATA FROM TABLE ACCOUNT," + acc.toString());
-                } catch (FileNotFoundException e) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String json = objectMapper.writeValueAsString(acc);
+
+                    CSVWriter.getInstance().write("MODIFIED DATA FROM TABLE ACCOUNT," + CSVWriter.getInstance().escapeAndQuote(json));
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -46,8 +53,11 @@ public class UserService implements Service<Account> {
             @Override
             public void accept(Account acc) {
                 try {
-                    CSVWriter.getInstance().write("REMOVED DATA FROM TABLE ACCOUNT," + acc.toString());
-                } catch (FileNotFoundException e) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    String json = objectMapper.writeValueAsString(acc);
+
+                    CSVWriter.getInstance().write("REMOVED DATA FROM TABLE ACCOUNT," + CSVWriter.getInstance().escapeAndQuote(json));
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
             }

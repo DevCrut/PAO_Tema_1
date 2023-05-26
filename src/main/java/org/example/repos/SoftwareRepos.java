@@ -59,9 +59,10 @@ public non-sealed class SoftwareRepos extends Observer<Software> implements Repo
             Statement stmt = database.getConnection().createStatement();
             String sqlCommand = "update plt_software set " +
                     "account_id=" + x.getAccount_id() + ", " +
-                    "software_type=" + x.getSoftware_type_id() + ", '" +
-                    "software_name-" + x.getSoftware_name() + "', " +
+                    "software_type=" + x.getSoftware_type_id() + ", " +
+                    "software_name='" + x.getSoftware_name() + "', " +
                     "time_owned=to_date('" + x.getTime_owned() + "') where software_id=" + x.getSoftware_id();
+            System.out.println(sqlCommand);
             int res = stmt.executeUpdate(sqlCommand);
             if (res > 0)
                 System.out.println("Successfully Updated");

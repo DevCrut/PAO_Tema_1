@@ -13,13 +13,16 @@ public class CSVWriter {
         return single_instance;
     }
 
+    public String escapeAndQuote(String content) {
+        return content.replace(",", "\\u002C").replace("\"", "\\u0022");
+    }
+
     public void write(String data) {
         try {
             FileWriter csvWriter = new FileWriter("auditlog.csv", true);
-            BufferedWriter writer = new BufferedWriter(csvWriter);
-            writer.write(data);
-            writer.newLine();
-            writer.close();
+            csvWriter.append(data);
+            csvWriter.append("\n");
+            csvWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
