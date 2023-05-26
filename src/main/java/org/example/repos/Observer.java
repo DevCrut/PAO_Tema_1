@@ -2,42 +2,42 @@ package org.example.repos;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
-public sealed abstract class Observer permits SoftwareRepos {
-    HashMap<int, BiConsumer<int, int>> observerAddList;
+public sealed abstract class Observer<T> permits SoftwareRepos, UserRepos {
+    HashMap<int, Consumer<T>> observerAddList;
     int observerAddCount = 0;
-    HashMap<int, BiConsumer<int, int>> observerRemoveList;
+    HashMap<int, Consumer<T>> observerRemoveList;
     int observerRemoveCount = 0;
-    HashMap<int, BiConsumer<int, int>> observerModifyList;
+    HashMap<int, Consumer<T>> observerModifyList;
     int observerModifyCount = 0;
 
-    public void triggerAdd(int tableID, int itemID){
-        for (HashMap.Entry<int, BiConsumer<int, int>> set : observerAddList.entrySet()) {
-            set.getValue().accept(tableID, itemID);
+    public void triggerAdd(T x){
+        for (HashMap.Entry<int, Consumer<T>> set : observerAddList.entrySet()) {
+            set.getValue().accept(x);
         }
     }
-    public void triggerRemove(int tableID, int itemID){
-        for (HashMap.Entry<int, BiConsumer<int, int>> set : observerRemoveList.entrySet()) {
-            set.getValue().accept(tableID, itemID);
+    public void triggerRemove(T x){
+        for (HashMap.Entry<int, Consumer<T>> set : observerRemoveList.entrySet()) {
+            set.getValue().accept(x);
         }
     }
-    public void triggerModify(int tableID, int itemID){
-        for (HashMap.Entry<int, BiConsumer<int, int>> set : observerModifyList.entrySet()) {
-            set.getValue().accept(tableID, itemID);
+    public void triggerModify(T x){
+        for (HashMap.Entry<int, Consumer<T>> set : observerModifyList.entrySet()) {
+            set.getValue().accept(x);
         }
     }
-    public int listenAdd(BiConsumer<int, int> lambda) {
+    public int listenAdd(Consumer<T> lambda) {
         int newKey = this.observerAddCount;
         observerAddList.put(newKey, lambda);
         return newKey;
     }
-    public int listenRemove(BiConsumer<int, int> lambda) {
+    public int listenRemove(Consumer<T> lambda) {
         int newKey = this.observerRemoveCount;
         observerRemoveList.put(newKey, lambda);
         return newKey;
     }
-    public int listenModify(BiConsumer<int, int> lambda) {
+    public int listenModify(Consumer<T> lambda) {
         int newKey = this.observerModifyCount;
         observerModifyList.put(newKey, lambda);
         return newKey;

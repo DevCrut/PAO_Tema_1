@@ -1,7 +1,6 @@
 package org.example;
 
 import org.example.classes.Software;
-import org.example.classes.User;
 import org.example.classes.Wallet;
 import org.example.services.SoftwareService;
 import org.example.services.UserService;

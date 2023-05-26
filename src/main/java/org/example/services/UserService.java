@@ -1,53 +1,91 @@
 package org.example.services;
 
-import org.example.classes.User;
+import org.example.classes.Account;
+import org.example.classes.Software;
+import org.example.csv.CSVWriter;
 import org.example.database.DatabaseManager;
+import org.example.repos.Service;
+import org.example.repos.UserRepos;
 import org.example.repos.UserRepos;
 
 import javax.sound.midi.Soundbank;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
-public class UserService {
-    static UserRepos repos;
-    static DatabaseManager database;
+public class UserService implements Service<Account> {
 
+    UserRepos repos;
     public UserService(){
-        this.database = DatabaseManager.getInstance();
-        this.repos = new UserRepos();
+        repos = new UserRepos();
+
+        repos.listenAdd(new Consumer<Account>() {
+            @Override
+            public void accept(Account acc) {
+                try {
+                    CSVWriter.getInstance().write("ADDED DATA TO TABLE ACCOUNT," + acc.toString());
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        repos.listenModify(new Consumer<Account>() {
+            @Override
+            public void accept(Account acc) {
+                try {
+                    CSVWriter.getInstance().write("MODIFIED DATA FROM TABLE ACCOUNT," + acc.toString());
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        repos.listenRemove(new Consumer<Account>() {
+            @Override
+            public void accept(Account acc) {
+                try {
+                    CSVWriter.getInstance().write("REMOVED DATA FROM TABLE ACCOUNT," + acc.toString());
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
-    public User addUser(Scanner s){
-        System.out.println("Enter user id: ");
-        int user_id = s.nextInt();
-
-        System.out.println("Enter user name: ");
-        String user_name = s.next();
-
-        User user = new User(user_id, user_name);
-        this.repos.addUser(user);
-
-        return user;
+    @Override
+    public void add(Account x) {
+        repos.add(x);
     }
 
-    public User modifyUser(User user, Scanner s){
-        System.out.println("Enter user id: ");
-        int user_id = s.nextInt();
-
-        System.out.println("Enter user name: ");
-        String user_name = s.next();
-
-        user.setAccount_id(user_id);
-        user.setAccount_name(user_name);
-        return user;
+    @Override
+    public void addMany(ArrayList<Account> x) {
+        for (Account s : x) {
+            repos.add(s);
+        }
     }
 
-    public void removeUser(Scanner s)
-    {
-        System.out.println("Enter user name:");
-        if(this.repos.removeUser(s.next()))
-            System.out.println("User removed successfully!");
-        else
-            System.out.println("Error");
+    @Override
+    public void remove(Account x) {
+        repos.remove(x);
+    }
+
+    @Override
+    public void removeMany(ArrayList<Account> x) {
+        for (Account s : x){
+            repos.remove(s);
+        }
+    }
+
+    @Override
+    public void modify(Account x) {
+        repos.modify(x);
+    }
+
+    @Override
+    public void modifyMany(ArrayList<Account> x) {
+        for (Account s : x){
+            repos.modify(s);
+        }
     }
 }

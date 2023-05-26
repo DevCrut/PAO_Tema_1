@@ -1,17 +1,52 @@
 package org.example.services;
 
 import org.example.classes.Software;
+import org.example.csv.CSVWriter;
 import org.example.repos.Service;
 import org.example.repos.SoftwareRepos;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class SoftwareService implements Service<Software> {
 
-    Repos<Software> repos;
+    SoftwareRepos repos;
     public SoftwareService(){
         repos = new SoftwareRepos();
+
+        repos.listenAdd(new Consumer<Software>() {
+            @Override
+            public void accept(Software software) {
+                try {
+                    CSVWriter.getInstance().write("ADDED DATA TO TABLE SOFTWARE," + software.toString());
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        repos.listenModify(new Consumer<Software>() {
+            @Override
+            public void accept(Software software) {
+                try {
+                    CSVWriter.getInstance().write("MODIFIED DATA FROM TABLE SOFTWARE," + software.toString());
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        repos.listenRemove(new Consumer<Software>() {
+            @Override
+            public void accept(Software software) {
+                try {
+                    CSVWriter.getInstance().write("REMOVED DATA FROM TABLE SOFTWARE," + software.toString());
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     @Override
