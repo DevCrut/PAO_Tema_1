@@ -5,7 +5,9 @@ import org.example.csv.CSVWriter;
 import org.example.repos.Service;
 import org.example.repos.SoftwareRepos;
 
+import java.sql.ResultSet;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -83,5 +85,22 @@ public class SoftwareService implements Service<Software> {
         for (Software s : x){
             repos.modify(s);
         }
+    }
+
+    public int getNextPrimaryKey() {
+        try {
+            repos.getQuery("select plt_software_sequence.nextval from dual");
+            String sqlCommand = "select plt_software_sequence.currval from dual";
+            ResultSet res = repos.getQuery(sqlCommand);
+            if (res.next()) {
+                System.out.println("Returned PrimaryKey " + res.getInt(1));
+                return res.getInt(1);
+            } else {
+                System.out.println("No value retrieved.");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

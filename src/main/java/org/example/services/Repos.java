@@ -2,6 +2,7 @@ package org.example.services;
 
 import org.example.classes.Software;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public interface Repos<T>{
@@ -12,5 +13,5 @@ public interface Repos<T>{
 
     public void modify(T x);
 
-    public ArrayList<T> getQuery(String query);
+    public ResultSet getQuery(String query);
 }

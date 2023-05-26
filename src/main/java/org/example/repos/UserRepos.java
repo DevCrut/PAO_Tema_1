@@ -1,21 +1,23 @@
 package org.example.repos;
 
 import org.example.classes.*;
+import org.example.database.DatabaseConnection;
 import org.example.database.DatabaseManager;
 import org.example.services.Repos;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public non-sealed class UserRepos extends Observer<Account> implements Repos<Account> {
 
-    private static DatabaseManager database = DatabaseManager.getInstance();
+    private static DatabaseConnection database = DatabaseManager.getInstance();
     @Override
     public void add(Account x) {
         try {
             Statement stmt = database.getConnection().createStatement();
-            String sqlCommand = "insert into plt_account values(plt_account_sequence.nextval, " +
+            String sqlCommand = "insert into plt_account values(" +
+                    x.getAccount_id() + ", " +
                     x.getAccount_type() + ", '" +
                     x.getAccount_name() + "', to_date('" +
                     x.getTime_created() + "'), " +
@@ -71,7 +73,13 @@ public non-sealed class UserRepos extends Observer<Account> implements Repos<Acc
     }
 
     @Override
-    public ArrayList<Account> getQuery(String query) {
+    public ResultSet getQuery(String query) {
+        try{
+            Statement statement = database.getConnection().createStatement();
+            return statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

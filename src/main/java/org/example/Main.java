@@ -9,18 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    static UserService userService = new UserService();
-    static SoftwareService softwareService = new SoftwareService();
-
-    static DatabaseManager database = DatabaseManager.getInstance();
+    static Controller controller;
 
     public static void main(String[] args) throws Exception {
-        database.connect();
+        controller = new Controller();
         ArrayList<Account> data = new ArrayList<>();
-        data.add(new Account(10, 2, "Mike2", "26/MAY/2023", 10));
-        data.add(new Account(11, 2, "Mike3", "26/MAY/2023", 11));
-        userService.addMany(data);
-        userService.removeMany(data);
-        database.disconnect();
+        data.add(new Account(-1, 2, "Mike2", "26/MAY/2023", 10));
+        data.add(new Account(-1, 2, "Mike3", "26/MAY/2023", 11));
+        data = controller.addUserMany(data);
+        ArrayList<Software> data2 = new ArrayList<>();
+        data2.add(new Software(-1, data.get(0).getAccount_id(), 2, "ROFL", "11/AUG/2023"));
+        data2.add(new Software(-1, data.get(1).getAccount_id(), 2, "CS1.6", "11/AUG/2023"));
+        controller.addSoftwareMany(data2);
+        controller.removeUserMany(data);
+        controller.removeSoftwareMany(data2);
     }
 }

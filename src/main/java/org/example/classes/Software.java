@@ -5,7 +5,7 @@ public class Software {
 
     private int account_id;
     private String software_name;
-    private int time_owned;
+    private String time_owned;
     private int software_type_id;
 
     public Software(int software_id){
@@ -27,7 +27,7 @@ public class Software {
         this.software_type_id = software_type_id;
         this.software_name = software_name;
     }
-    public Software(int software_id, int account_id, int software_type_id, String software_name, int time_owned){
+    public Software(int software_id, int account_id, int software_type_id, String software_name, String time_owned){
         this.software_id = software_id;
         this.account_id = account_id;
         this.software_type_id = software_type_id;
@@ -60,11 +60,11 @@ public class Software {
         this.software_name = software_name;
     }
 
-    public int getTime_owned() {
+    public String getTime_owned() {
         return time_owned;
     }
 
-    public void setTime_owned(int time_owned) {
+    public void setTime_owned(String time_owned) {
         this.time_owned = time_owned;
     }
 

@@ -10,6 +10,7 @@ import org.example.repos.UserRepos;
 
 import javax.sound.midi.Soundbank;
 import java.io.FileNotFoundException;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.function.Consumer;
@@ -87,5 +88,22 @@ public class UserService implements Service<Account> {
         for (Account s : x){
             repos.modify(s);
         }
+    }
+
+    public int getNextPrimaryKey() {
+        try {
+            repos.getQuery("select plt_account_sequence.nextval from dual");
+            String sqlCommand = "select plt_account_sequence.currval from dual";
+            ResultSet res = repos.getQuery(sqlCommand);
+            if (res.next()) {
+                System.out.println("Returned PrimaryKey " + res.getInt(1));
+                return res.getInt(1);
+            } else {
+                System.out.println("No value retrieved.");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return -1;
     }
 }
