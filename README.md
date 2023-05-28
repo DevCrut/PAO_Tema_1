@@ -1,5 +1,57 @@
-# PAO Proiectul 1
+# PAO Proiectul 2
 ##### Corolevschi Mihai - Grupa 232
+
+Baza de date a fost hostata pe Oracle XE.
+Aplicatia se conecteaza la baza de date, folosind interfata DatabaseConnection.
+DatabaseConnection este implementata direct the DatabaseManager, care este un singleton.
+DatabaseManagerul are functional de a se conecta, deconecta si de a returna conectiunea.
+
+Am implementat clasele Repository, care au functionalul de management al SQL-ului.
+Ele pot adauga, sterge, modifica si selecta date din Oracle XE.
+Ele implementeaza din clasa Repo, care la urma ei este o interfata Generica.
+Pana cand avem doua clase Repository importante. UserRepo<Account> si SoftwareRepo<Software>.
+Clasele ce implementeaza Repo, dau trigger la clasele Observer.
+
+Am Implementat clasele Service, care conecteaza functionalul aplicatie cu cel al bazei de date.
+Clasele Service pot adauga, modifica, sterge si genera urmatoare cheie primara din baza de date.
+Ele implementeaza functionalul de Observer (listenAdd, listenRemove, listenModify) folosind consumer.
+Cu ajutorul acestor clase, sterilizam obiectele adaugate noi (preluam din baza de date, cheile primare noi) pentru a nu avea coliziuni.
+
+Am adaugat 3 design pattern-uri. Singleton, Observer si Facade
+Singleton poate fi observat in clasele CSVWriter si DatabaseManager.
+Observer poate fi observat in clasele Service (UserService, SoftwareService, UserRepo, SoftwareRepo)
+Facade poate fi observat in clasa Controller, ea encapsuleaza functionalul permis de UserService si SoftwareService
+
+Am implementat scriera in CSV folosind design patternul Observer. Odata ce detectam o schimbare la nivel de baza, scriem logguri in CSV.
+Fisierul CSV se numeste audit.csv
+
+Am implementat Thread-uri pentru a putea procesa un numar mare de cereri de scriere in Logguri.
+El este implementat in CSVWriter si CSVWriterTask. Am folosit structuri de date threadsafe.
+Functionalul de baza este adaugarea elementelor in Queue folosind CSVWriter si procesarea elementelor in CSVWriterTask.
+Odata cu terminarea programului, threadul o sa proceseze tot Queue-ul pana la terminate.
+
+Am implementat exceptiile DatabaseConnectionException, DatabaseDisconnectException si DatabaseQueryException.
+Ele sunt foloside the DatabaseManager in momentul in care nu este posibila conectarea, deconectarea si utilizarea bazaei de date.
+
+Am implementat Loggerul in CSV. Toate actiunile aplicatiei asupra bazei de date sunt inregistrate.
+Actiunile pot fi Adaugarea, Stergerea si Modificare unor elemente.
+
+Clasele Sealed si Non-sealed au fost folosite pentru design pattern-ul Observer. Clasa Observer este sealed si permite mosterirea doar claselor Repository, care la randul lor le foloseste functionalul.
+Clasele Non-sealed sunt clasele UserRepository si SoftwareRepository.
+ 
+Clasele generice sunt Service si Repo. Ele ambele o sa aiba nevoie de tipul de date odata cu implementarea lor.
+Este necesar sa le stim din moment ce operam la nivel de aplicatie.
+ 
+Nu am folosit iterator.
+ 
+Am folosit Jackson Library pentru a serializa datele in CSV.
+Fiecare actiune inregistrata, arata si obiectul inserat, modificat sau sters.
+Stringul JSON a fost formatat, folosind caractere speciale pentru a fi compatibil cu formaul CSV-ului
+
+
+
+
+# PAO Proiectul 1
 
 Ideea proiectului este de a putea gestiona si structura o baza de date pentru o platforma de Softuri.
 Fiecare platforma este obligata sa aiba tipul de date Developer, User, Game, App si clasele de baze din care se mostenesc datele.
