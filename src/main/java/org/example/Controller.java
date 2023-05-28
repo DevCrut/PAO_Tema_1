@@ -6,12 +6,14 @@ import org.example.database.DatabaseManager;
 import org.example.exceptions.DatabaseConnectionException;
 import org.example.services.SoftwareService;
 import org.example.services.UserService;
+import org.example.services.WalletService;
 
 import java.util.ArrayList;
 
 public class Controller {
     private static UserService userService = new UserService();
     private static SoftwareService softwareService = new SoftwareService();
+    private static WalletService walletService = new WalletService();
 
     private static DatabaseManager database = DatabaseManager.getInstance();
 

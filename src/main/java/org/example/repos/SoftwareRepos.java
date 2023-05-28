@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public non-sealed class SoftwareRepos extends Observer<Software> implements Repos<Software> {
+public final class SoftwareRepos extends Observer<Software> implements Repos<Software> {
 
     private static DatabaseConnection database = DatabaseManager.getInstance();
     @Override

@@ -9,19 +9,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public final class UserRepos extends Observer<Account> implements Repos<Account> {
+public final class WalletRepos extends Observer<Wallet> implements Repos<Wallet> {
 
     private static DatabaseConnection database = DatabaseManager.getInstance();
     @Override
-    public void add(Account x) {
+    public void add(Wallet x) {
         try {
             Statement stmt = database.getConnection().createStatement();
-            String sqlCommand = "insert into plt_account values(" +
-                    x.getAccount_id() + ", " +
-                    x.getAccount_type() + ", '" +
-                    x.getAccount_name() + "', to_date('" +
-                    x.getTime_created() + "'), " +
-                    x.getWallet() + ")";
+            String sqlCommand = "insert into plt_wallet values(" +
+                    x.getWallet_id() + ", " +
+                    x.getBonus_points() + ", '" +
+                    x.getDollars() + ")";
             System.out.println(sqlCommand);
             int res = stmt.executeUpdate(sqlCommand);
             if (res > 0)
@@ -36,10 +34,10 @@ public final class UserRepos extends Observer<Account> implements Repos<Account>
     }
 
     @Override
-    public void remove(Account x) {
+    public void remove(Wallet x) {
         try {
             Statement stmt = database.getConnection().createStatement();
-            String sqlCommand = "delete from plt_account where account_id = " + x.getAccount_id();
+            String sqlCommand = "delete from plt_wallet where wallet_id = " + x.getWallet_id();
             int res = stmt.executeUpdate(sqlCommand);
             if (res > 0)
                 System.out.println("Successfully Removed");
@@ -53,13 +51,12 @@ public final class UserRepos extends Observer<Account> implements Repos<Account>
     }
 
     @Override
-    public void modify(Account x) {
+    public void modify(Wallet x) {
         try {
             Statement stmt = database.getConnection().createStatement();
-            String sqlCommand = "update plt_account set account_type="+x.getAccount_type()+" "+
-                                ", account_name='"+x.getAccount_name()+"' "+
-                                ", account_time_created=to_date('"+x.getTime_created()+"') "+
-                                ", wallet_id="+x.getWallet()+" where account_id = " + x.getAccount_id();
+            String sqlCommand = "update plt_wallet set bonus_points="+x.getBonus_points()+" "+
+                    ", dollars="+x.getDollars()+" "+
+                    " where wallet_id = " + x.getWallet_id();
             System.out.println(sqlCommand);
             int res = stmt.executeUpdate(sqlCommand);
             if (res > 0)

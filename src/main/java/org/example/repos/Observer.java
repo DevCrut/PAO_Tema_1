@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-public sealed abstract class Observer<T> permits SoftwareRepos, UserRepos {
+public sealed abstract class Observer<T> permits SoftwareRepos, UserRepos, WalletRepos {
     HashMap<Integer, Consumer<T>> observerAddList = new HashMap<>();
     int observerAddCount = 0;
     HashMap<Integer, Consumer<T>> observerRemoveList = new HashMap<>();
